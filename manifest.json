@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "AshotBots",
+  "version": "1.0.0",
+  "description": "AshotBots - Farmer & Tracker bots for Agar.io",
+  "author": "Ashot",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AshotBots",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://agar.io/*",
+    "*://*.agar.io/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://agar.io/*", "*://*.agar.io/*"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["*://agar.io/*", "*://*.agar.io/*"]
+    }
+  ]
+}

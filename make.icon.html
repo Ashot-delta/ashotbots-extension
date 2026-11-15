@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AshotBots - Générateur d'icônes</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0d0d16;
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 { color: #00e0e0; }
+    .icons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+      align-items: flex-end;
+    }
+    .icon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    canvas {
+      border: 2px dashed #00e0e0;
+      border-radius: 8px;
+      background: #0a0a16;
+    }
+    button {
+      background: linear-gradient(135deg,#00c8c8,#008888);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover { transform: scale(1.05); }
+    .note { color: #8899aa; font-size: 13px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🎨 Générateur d'icônes AshotBots</h1>
+  <div class="icons">
+    <div class="icon-box">
+      <canvas id="c16" width="16" height="16" style="width:64px;height:64px;image-rendering:pixelated;"></canvas>
+      <span>icon16.png</span>
+      <button onclick="download(16)">⬇ Télécharger</button>
+    </div>
+    <div class="icon-box">
+      <canvas id="c48" width="48" height="48"></canvas>
+      <span>icon48.png</span>
+      <button onclick="download(48)">⬇ Télécharger</button>
+    </div>
+    <div class="icon-box">
+      <canvas id="c128" width="128" height="128"></canvas>
+      <span>icon128.png</span>
+      <button onclick="download(128)">⬇ Télécharger</button>
+    </div>
+  </div>
+  <button onclick="downloadAll()">⬇⬇ Télécharger les 3 d'un coup</button>
+  <div class="note">Place les 3 fichiers téléchargés dans ton dossier <code>ashotbots-extension/</code></div>
+
+  <script>
+    function drawIcon(size) {
+      const canvas = document.getElementById("c" + size);
+      const ctx = canvas.getContext("2d");
+
+      // Fond
+      ctx.fillStyle = "#0A0A16";
+      ctx.fillRect(0, 0, size, size);
+
+      // Bordure arrondie (sauf 16px)
+      if (size >= 32) {
+        const r = Math.max(2, size / 8);
+        ctx.strokeStyle = "#00C8C8";
+        ctx.lineWidth = Math.max(1, size / 32);
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(1, 1, size - 2, size - 2, r);
+        } else {
+          // Fallback si roundRect pas dispo
+          ctx.rect(1, 1, size - 2, size - 2);
+        }
+        ctx.stroke();
+      }
+
+      // Texte
+      const text = size >= 32 ? "AB" : "A";
+      ctx.fillStyle = "#00E0E0";
+      ctx.font = `bold ${Math.floor(size * 0.65)}px Arial, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, size / 2, size / 2 + size * 0.05);
+    }
+
+    [16, 48, 128].forEach(drawIcon);
+
+    function download(size) {
+      const canvas = document.getElementById("c" + size);
+      const link = document.createElement("a");
+      link.download = `icon${size}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    function downloadAll() {
+      [16, 48, 128].forEach((s, i) => {
+        setTimeout(() => download(s), i * 300);
+      });
+    }
+  </script>
+</body>
+</html>

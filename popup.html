@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    width: 320px;
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: #0d0d16;
+    color: #fff;
+    padding: 16px;
+  }
+  .header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .logo {
+    width: 48px; height: 48px; border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(0,200,200,0.3);
+    border: 2px solid rgba(0,200,200,0.35);
+  }
+  h1 {
+    font-size: 18px; margin: 0;
+    background: linear-gradient(90deg,#00e0e0,#00b0b0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 1.5px;
+  }
+  .sub { font-size: 10px; color: #7a8ba0; margin-top: 2px; }
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,200,200,0.18);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  label { font-size: 11px; color: #b0c0d0; font-weight: 600; display: block; margin-bottom: 4px; }
+  input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  input:focus { outline: none; border-color: rgba(0,200,200,0.5); }
+  .btn {
+    width: 100%; padding: 11px;
+    border: none; border-radius: 10px;
+    cursor: pointer; font-weight: 700;
+    font-size: 12px;
+    margin-top: 6px;
+    transition: transform 0.15s;
+  }
+  .btn:hover { transform: scale(1.02); }
+  .btn-primary {
+    background: linear-gradient(135deg,#00c8c8,#008888);
+    color: #fff;
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: #8899aa;
+    margin-top: 12px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #666; }
+  .dot.on { background: #00e0e0; box-shadow: 0 0 8px #00e0e0; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <img class="logo" src="icon128.png" alt="AshotBots" />
+    <div>
+      <h1>ASHOTBOTS</h1>
+      <div class="sub">Farmer & Tracker for Agar.io</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label>Bot Name</label>
+    <input type="text" id="botName" value="AshotBots" />
+  </div>
+
+  <div class="card">
+    <label>Bot Amount (1-200)</label>
+    <input type="number" id="botQty" value="150" min="1" max="200" />
+  </div>
+
+  <button class="btn btn-primary" id="openAgar">🌐 Open Agar.io</button>
+  <button class="btn btn-secondary" id="save">💾 Save Settings</button>
+
+  <div class="status">
+    <div class="dot" id="dot"></div>
+    <span id="statusText">Ready</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
